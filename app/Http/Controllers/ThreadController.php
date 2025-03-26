@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
+use Inertia\Response as InertiaResponse;
 use App\Http\Requests\StoreThreadRequest;
 use App\Http\Requests\UpdateThreadRequest;
 use App\Models\Thread;
@@ -9,11 +11,11 @@ use App\Models\Thread;
 class ThreadController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * トップ画面表示
      */
-    public function index()
+    public function index(): InertiaResponse
     {
-        //
+        return Inertia::render('Top');
     }
 
     /**
