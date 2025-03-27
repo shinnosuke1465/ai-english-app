@@ -1,7 +1,7 @@
 import { Head } from '@inertiajs/react'
 import { SideMenu } from '../Components/SideMenu'
 import { LogoutButton } from '../Components/LogoutButton'
-import { LearningRecordGrid } from '../Components/LearningRecordGrid'
+// import { LearningRecordGrid } from '../Components/LearningRecordGrid'
 
 export default function Top({ threads, learningDates }) { // learningDatesを受け取る
     return (
@@ -14,7 +14,7 @@ export default function Top({ threads, learningDates }) { // learningDatesを受
                         <LogoutButton />
                     </div>
                     <h1 className="text-2xl mb-4">英会話学習記録</h1>
-                    <LearningRecordGrid learningDates={learningDates} /> {/* learningDatesを渡す */}
+                    {/* <LearningRecordGrid learningDates={learningDates} /> learningDatesを渡す */}
                 </div>
             </div>
         </>

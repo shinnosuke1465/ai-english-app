@@ -7,6 +7,7 @@ use Inertia\Response as InertiaResponse;
 use App\Http\Requests\StoreThreadRequest;
 use App\Http\Requests\UpdateThreadRequest;
 use App\Models\Thread;
+use App\Models\Message;
 
 class ThreadController extends Controller
 {
@@ -15,7 +16,16 @@ class ThreadController extends Controller
      */
     public function index(): InertiaResponse
     {
-        return Inertia::render('Top');
+        $threads = Thread::orderBy('id', 'desc')->get(); // スレッドデータを取得
+        // $learningDates = Message::selectRaw('DATE(created_at) as date')
+        //                         ->groupBy('date')
+        //                         ->pluck('date')
+        //                         ->toArray(); // 学習した日付を取得
+
+        return Inertia::render('Top', [
+            'threads' => $threads, // フロントエンドに渡す
+            // 'learningDates' => $learningDates, // 学習日をフロントエンドに渡す
+        ]);
     }
 
     /**
@@ -29,17 +39,27 @@ class ThreadController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreThreadRequest $request)
+    public function store()
     {
-        //
+        $thread = Thread::create([
+            'title' => now()->format('Y-m-d H:i:s'),
+        ]);
+
+        return redirect()->route('thread.show', ['threadId' => $thread->id]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Thread $thread)
+    public function show(int $threadId)
     {
-        //
+        $messages = Message::where('thread_id', $threadId)->get(); // メッセージデータを取得
+        $threads = Thread::orderBy('id', 'desc')->get(); // スレッドデータを取得
+        return Inertia::render('Thread/Show', [
+            'threads' => $threads, // フロントエンドに渡す
+            'messages' => $messages, // フロントエンドに渡す
+            'threadId' => $threadId,
+        ]);
     }
 
     /**
