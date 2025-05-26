@@ -4,7 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-    // ログイン画面表示
+    // ログイン画面表示。
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
 
